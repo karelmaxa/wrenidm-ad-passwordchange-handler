@@ -20,7 +20,7 @@
  * with the fields enclosed by brackets [] replaced by
  * your own identifying information:
  * "Portions Copyrighted [2012] [ForgeRock AS]"
- * "Portions Copyrighted [2024] [Wren Security]"
+ * "Portions Copyrighted [2024-2025] [Wren Security]"
  **/
 
 #ifndef __UTILS_H__
@@ -122,13 +122,13 @@ typedef struct {
         MUTEX_CREATE(m.d);\
         m.e[SIGNAL] = CreateEvent(NULL, FALSE, FALSE, NULL);\
         m.e[BROADCAST] = CreateEvent(NULL, TRUE, FALSE, NULL);\
-        m.c = 0;}while(0) 
+        m.c = 0;}while(0)
 
 #define CONDVAR_DELETE(m) do {\
         ResetEvent(m.e[BROADCAST]);\
         CloseHandle(m.e[SIGNAL]);\
         CloseHandle(m.e[BROADCAST]);\
-        MUTEX_DELETE(m.d);}while(0) 
+        MUTEX_DELETE(m.d);}while(0)
 
 #define CONDVAR_SIGNAL(m) do{\
         BOOL w;\
@@ -188,6 +188,8 @@ char *utf8_encode(const wchar_t *wstr, size_t *outlen);
 wchar_t *utf8_decode(const char *str, size_t *outlen);
 char * base64_decode(const char *input, size_t length, size_t *outlen);
 char * base64_encode(const char *input, size_t length, size_t *outlen);
+
+char * json_encode(const char *input, size_t length, size_t *outlen);
 
 BOOL generate_key(char **b64key, size_t *size);
 BOOL encrypt_password(const char *b64key, const char *data, char ** b64encr);
